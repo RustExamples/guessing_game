@@ -1,9 +1,19 @@
+// Let rust know that we use external dependency
+extern crate rand;
+
 // Rust includes only a limited scope during "prelude" phase
 // Import "io" from "std" library
 use std::io;
+// Rng is a "trait" here, has methods that random number
+// generators implement
+use rand::Rng;
 
 fn main() {
     println!("Guess the number!");
+
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+
+    println!("The secret number is: {}", secret_number);
 
     println!("Please input your guess.");
 
