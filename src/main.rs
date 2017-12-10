@@ -15,8 +15,6 @@ fn main() {
 
     let secret_number = rand::thread_rng().gen_range(1, 101);
 
-    println!("The secret number is: {}", secret_number);
-    
     loop{
         println!("Please input your guess.");
 
@@ -40,8 +38,10 @@ fn main() {
         // trim any space or new line 
         // parse the input as number and in this case "u32"
         // this makes rust infers "secret_number" as "u32"
-        let guess: u32 = guess.trim().parse()
-                            .expect("Please type a number!");
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue
+        };
 
         // Print formatted string where "{}" is the placeholder
         println!("You guessed: {}", guess);
