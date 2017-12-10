@@ -7,6 +7,8 @@ use std::io;
 // Rng is a "trait" here, has methods that random number
 // generators implement
 use rand::Rng;
+// Ordering is an enum with values "Less", "Greater" & "Equal"
+use std::cmp::Ordering;
 
 fn main() {
     println!("Guess the number!");
@@ -33,6 +35,19 @@ fn main() {
     // If its "Err", it crashes and prints the msg passed to it
         .expect("Failed to read line");
 
+    // "guess" is a shadow of original rather than different variable
+    // trim any space or new line 
+    // parse the input as number and in this case "u32"
+    // this makes rust infers "secret_number" as "u32"
+    let guess: u32 = guess.trim().parse()
+                        .expect("Please type a number!");
+
     // Print formatted string where "{}" is the placeholder
     println!("You guessed: {}", guess);
+
+    match guess.cmp(&secret_number){
+        Ordering::Less => println!("Too small!"),
+        Ordering::Greater => println!("Too big!"),
+        Ordering::Equal => println!("You win!"),
+    }
 }
